@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data;
 using System.IO;
-using System.Runtime.Intrinsics.X86;
+using System.Linq.Expressions;
 using System.Text;
 
 namespace Advance
@@ -23,6 +22,7 @@ namespace Advance
 
     class Board
     {
+        private char[] legalTroopSymbols = "ZBMJSDCGzbmjsdcg.#\n".ToCharArray();
         public int Size {get; set; }
         public Cell[,] Grid { get; set; }
         public Board(int s = 9) 
@@ -38,8 +38,10 @@ namespace Advance
             }
         }
 
+
         public void readFileToBoard(string path)
         {
+            bool invalidSymbol = false;
             try
             {
                 if (File.Exists(path))
@@ -47,19 +49,53 @@ namespace Advance
                     using (StreamReader reader = new StreamReader(path))
                     {
                         int rowCnt = 0;
-                        Console.WriteLine("From file:");
                         while (!reader.EndOfStream)
                         {
                             string line = reader.ReadLine();
-                            Console.WriteLine(line);
                             for (int columnCnt = 0; columnCnt < Size; columnCnt++)
                             {
-                                Grid[rowCnt, columnCnt].value = line[columnCnt];
+                                if (!Array.Exists(legalTroopSymbols, x => x == line[columnCnt]))
+                                {
+                                    invalidSymbol = true;
+                                    break;
+                                }
                             }
-                            rowCnt++;
+                            if (invalidSymbol == true)
+                            {
+                                break;
+                            }
+                            else
+                            {
+                                rowCnt++;
+                            }
                         }
                         reader.Close();
                     }
+
+                    if (invalidSymbol != true)
+                    {
+                        using (StreamReader reader = new StreamReader(path))
+                        {
+                            int rowCnt = 0;
+                            while (!reader.EndOfStream)
+                            {
+                                string line = reader.ReadLine();
+                                for (int columnCnt = 0; columnCnt < Size; columnCnt++)
+                                {
+                                    Grid[rowCnt, columnCnt].value = line[columnCnt];
+                                }
+                                rowCnt++;
+                            }
+                        }
+                    }
+                    else
+                    {
+                        Console.WriteLine("invalid symbol detected!");
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("wrong file path");
                 }
             }
             catch (Exception e)
@@ -81,7 +117,7 @@ namespace Advance
                 }
                 text = text + "\n";
             }
-
+            
             try
             {
                 if (File.Exists(path))

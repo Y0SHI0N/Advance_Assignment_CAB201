@@ -90,12 +90,14 @@ namespace Advance
                     }
                     else
                     {
-                        Console.WriteLine("invalid symbol detected!");
+                        Console.WriteLine("Read Error: Invalid symbol detected!");
+                        System.Environment.Exit(1);
                     }
                 }
                 else
                 {
-                    Console.WriteLine("wrong file path");
+                    Console.WriteLine("Read Error: Invalid file path");
+                    System.Environment.Exit(1);
                 }
             }
             catch (Exception e)

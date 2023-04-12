@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "Advance": {
+      "commandName": "Project",
+      "commandLineArgs": "black \"C:\\Users\\Y0SHI0N\\OneDrive\\Documents\\Uni\\Second year\\Sem 1\\CAB201 - Programming Principles\\Assignment 2\\CAB201 Assignment 2 Test Data-2\\4\\white\\tests\\0.txt\" \"C:\\Users\\Y0SHI0N\\Downloads\\outputtext\\output.txt\""
+    }
+  }
+}

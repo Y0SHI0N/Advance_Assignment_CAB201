@@ -41,7 +41,7 @@ namespace Advance
                             Board mainBoard = new Board();
                             mainBoard.readFileToBoard(args[1]);
                             Console.WriteLine("Stating game....");
-                            mainBoard.writeBoardToFile(args[2]);
+                            //mainBoard.writeBoardToFile(args[2]);
                         }
                         else
                         {

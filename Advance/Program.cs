@@ -9,6 +9,7 @@ namespace Advance
 
     internal class Program
     {
+        public static readonly char[] legalTroopSymbols = "ZBMJSDCGzbmjsdcg.#\n".ToCharArray();
         private static string botName = "Eudyptula";
         private static string[] firstArg = new string[3] {"white", "black", "name"};
 
@@ -39,6 +40,7 @@ namespace Advance
                         {
                             Board mainBoard = new Board();
                             mainBoard.readFileToBoard(args[1]);
+                            Console.WriteLine("Stating game....");
                             mainBoard.writeBoardToFile(args[2]);
                         }
                         else

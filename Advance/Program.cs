@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
 using System.Reflection.PortableExecutable;
 using System.Text;
@@ -12,6 +13,7 @@ namespace Advance
         public static readonly char[] legalTroopSymbols = "ZBMJSDCGzbmjsdcg.#\n".ToCharArray();
         private static string botName = "Eudyptula";
         private static string[] firstArg = new string[3] {"white", "black", "name"};
+        public static bool playAsWhite;
 
         public static void outputError(string message)
         {
@@ -35,13 +37,14 @@ namespace Advance
                     // check if the argument is 'white' or 'black'. if true, then proceed, otherwise abort
                     if (argsOneBlackOrWhite == true)
                     {
+                        playAsWhite = args[0].ToLower() == "white" ? true : false;
                         // input validation for second and third argument
                         if ((File.Exists(args[1]) && File.Exists(args[2])) == true)
                         {
                             Board mainBoard = new Board();
                             mainBoard.readFileToBoard(args[1]);
-                            Console.WriteLine("Stating game....");
-                            //mainBoard.writeBoardToFile(args[2]);
+                            Console.WriteLine($"Stating game as {args[0]}....");
+                            mainBoard.writeBoardToFile(args[2]);
                         }
                         else
                         {

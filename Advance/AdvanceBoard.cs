@@ -1,8 +1,7 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq.Expressions;
-using System.Text;
 
 namespace Advance
 {
@@ -12,7 +11,7 @@ namespace Advance
         public int col { get; private set; }
         public bool currentlyOccupied { get; set; }
         public bool legalNextMove { get; set; }
-        public char value { get; set; }
+        public char troopSymbol { get; set; }
         public Cell(int x, int y)
         {
             row = x;
@@ -25,6 +24,7 @@ namespace Advance
         private char[] legalTroopSymbols = "ZBMJSDCGzbmjsdcg.#\n".ToCharArray();
         public int Size {get; set; }
         public Cell[,] Grid { get; set; }
+        public Piece[,] troopsOnBoard { get; set; } = new Piece[9,9];
         public Board(int s = 9) 
         {
             Size = s;
@@ -36,6 +36,46 @@ namespace Advance
                     Grid[i,j] = new Cell(i,j);
                 }
             }
+        }
+         public void addTroop(char c,int row, int col)
+        {
+            if (c == 'z' || c == 'Z')
+            {
+                troopsOnBoard[row, col] = new Zombie(c, row, col);
+            }
+            else if (c == 'b'|| c== 'B')
+            {
+                troopsOnBoard[row, col] = new Builder(c, row, col);
+            }
+            else if (c == '#')
+            {
+                troopsOnBoard[row, col] = new Wall(c, row, col);
+            }
+            else if (c == 'm' || c == 'M')
+            {
+                troopsOnBoard[row, col] = new Miner(c, row, col);
+            }
+            else if (c == 'j' || c == 'J')
+            {
+                troopsOnBoard[row, col] = new Jester(c, row, col);
+            }
+            else if (c == 's' || c == 'S')
+            {
+                troopsOnBoard[row, col] = new Sentinel(c, row, col);
+            }
+            else if (c == 'c' || c == 'C')
+            {
+                troopsOnBoard[row, col] = new Catapult(c, row, col);
+            }
+            else if (c == 'd' || c == 'D')
+            {
+                troopsOnBoard[row, col] = new Dragon(c, row, col);
+            }
+            else if (c == 'g' || c == 'G')
+            {
+                troopsOnBoard[row, col] = new General(c, row, col);
+            }
+            Grid[row, col].currentlyOccupied = true;
         }
 
         public void readFileToBoard(string path)
@@ -83,7 +123,11 @@ namespace Advance
                                 string line = reader.ReadLine();
                                 for (int columnCnt = 0; columnCnt < Size; columnCnt++)
                                 {
-                                    Grid[rowCnt, columnCnt].value = line[columnCnt];
+                                    Grid[rowCnt, columnCnt].troopSymbol = line[columnCnt];
+                                    if ((line[columnCnt] != '.' )|| (line[columnCnt] != '\n'))
+                                    {
+                                        addTroop(line[columnCnt], rowCnt, columnCnt);
+                                    }
                                 }
                                 rowCnt++;
                             }
@@ -116,7 +160,7 @@ namespace Advance
             {
                 for(int j = 0;j < Size; j++)
                 {
-                    text = text + Grid[i,j].value.ToString();
+                    text = text + Grid[i,j].troopSymbol.ToString();
                 }
                 text = text + "\n";
             }

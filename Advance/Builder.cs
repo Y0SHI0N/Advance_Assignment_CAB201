@@ -41,7 +41,7 @@ namespace Advance
         {
             symbol = _symbol;
             colour = null;
-            resourceValue = null;
+            resourceValue = 0;
             posistion[0] = row;
             posistion[1] = col;
             canMove = false;

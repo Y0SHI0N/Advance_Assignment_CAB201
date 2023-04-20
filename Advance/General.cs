@@ -9,7 +9,7 @@ namespace Advance
         {
             symbol = _symbol;
             colour = char.IsUpper(symbol) == true ? "White" : "Black";
-            resourceValue = int.MaxValue;
+            resourceValue = 9999;
             posistion[0] = row;
             posistion[1] = col;
             canMove = true;

@@ -43,6 +43,8 @@ namespace Advance
                         {
                             Board mainBoard = new Board();
                             mainBoard.readFileToBoard(args[1]);
+                            Bot bot = new Bot(playAsWhite, mainBoard.calTotalValue(playAsWhite));
+                            Console.WriteLine($"{bot.totalResource}");
                             //Console.WriteLine($"Stating game as {args[0]}....");
                             mainBoard.writeBoardToFile(args[2]);
                         }

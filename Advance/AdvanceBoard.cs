@@ -37,7 +37,41 @@ namespace Advance
                 }
             }
         }
-         public void addTroop(char c,int row, int col)
+
+        public int calTotalValue(bool playAsWhite)
+        {
+            int total = 0;
+            if (playAsWhite == true)
+            {
+                for (int i = 1; i < 9; i++)
+                {
+                    for (int j = 1; j < 9; j++)
+                    {
+                        if (troopsOnBoard[i, j] == null) continue;
+                        if (char.IsUpper(troopsOnBoard[i, j].symbol) == true)
+                        {
+                            total += troopsOnBoard[i, j].resourceValue;
+                        }
+                    }
+                }
+            }
+            else
+            {
+                for (int i = 0; i < 9; i++)
+                {
+                    for (int j = 0; j < 9; j++)
+                    {
+                        if (troopsOnBoard[i, j]==null) continue;
+                        if (char.IsUpper(troopsOnBoard[i, j].symbol) != true)
+                        {
+                            total += troopsOnBoard[i, j].resourceValue;
+                        }
+                    }
+                }
+            }
+            return total;
+        }
+        public void addTroop(char c,int row, int col)
         {
             if (c == 'z' || c == 'Z')
             {

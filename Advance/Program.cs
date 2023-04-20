@@ -11,7 +11,7 @@ namespace Advance
     internal class Program
     {
         public static readonly char[] legalTroopSymbols = "ZBMJSDCGzbmjsdcg.#\n".ToCharArray();
-        private static string botName = "Eudyptula";
+        private static string botName = "HoChiMinh";
         private static string[] firstArg = new string[3] {"white", "black", "name"};
         public static bool playAsWhite;
 
@@ -43,7 +43,7 @@ namespace Advance
                         {
                             Board mainBoard = new Board();
                             mainBoard.readFileToBoard(args[1]);
-                            Console.WriteLine($"Stating game as {args[0]}....");
+                            //Console.WriteLine($"Stating game as {args[0]}....");
                             mainBoard.writeBoardToFile(args[2]);
                         }
                         else

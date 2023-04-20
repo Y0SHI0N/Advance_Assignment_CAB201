@@ -17,9 +17,48 @@ namespace Advance
 
         /*The General functions almost identically to the King in chess. It can move and capture on
         any of the 8 adjoining squares*/
-        public override void markNextLegalMove()
+        public override void markNextLegalMove(int currentX, int currentY)
         {
-            Console.WriteLine($"To be written for {this.GetType().Name}");
+            int[] move1, move2, move3, move4, move5, move6, move7, move8;
+            int[][] tempLegalMoves = new int[][]
+            {
+            move1 = new int[2] { currentX + 1, currentY },
+            move2 = new int[2] { currentX - 1, currentY },
+            move3 = new int[2] { currentX, currentY + 1 },
+            move4 = new int[2] { currentX, currentY - 1 },
+            move5 = new int[2] { currentX - 1, currentY - 1 },
+            move6 = new int[2] { currentX - 1, currentY + 1 },
+            move7 = new int[2] { currentX + 1, currentY + 1 },
+            move8 = new int[2] { currentX - 1, currentY - 1 },
+            };
+            List<int[]> subArrays = tempLegalMoves.ToList();
+
+            int index = 0;
+            int modifier = 0;
+          
+            while (index < tempLegalMoves.Length)
+            {
+                if ((tempLegalMoves[index][0] < 9 && tempLegalMoves[index][0] > -1) && (tempLegalMoves[index][1] < 9 && tempLegalMoves[index][1] > -1))
+                {
+                    ;
+                }
+                else
+                {
+                    subArrays.RemoveAt(index - modifier);
+                    modifier++;
+                }
+                index++;
+            }
+            tempLegalMoves = subArrays.ToArray();
+
+            for (int i = 0; i < tempLegalMoves.Length; i++)
+            {
+                Console.WriteLine(tempLegalMoves[i][0] + "," + tempLegalMoves[i][1]);
+            }
+
+
+
+
         }
         public override void Capture()
         {

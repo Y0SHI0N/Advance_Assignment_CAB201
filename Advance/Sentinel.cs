@@ -18,7 +18,7 @@ namespace Advance
         /*It moves and captures similarly to a Knight in the
         game of chess, moving two squares in one cardinal direction and then one square in a
         perpendicular direction, jumping over any intervening pieces (or walls).*/
-        public override void markNextLegalMove()
+        public override void markNextLegalMove(int currentX, int currentY)
         {
             Console.WriteLine($"To be written for {this.GetType().Name}");
         }

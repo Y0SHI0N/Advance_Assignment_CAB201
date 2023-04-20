@@ -44,8 +44,11 @@ namespace Advance
                             Board mainBoard = new Board();
                             mainBoard.readFileToBoard(args[1]);
                             Bot bot = new Bot(playAsWhite, mainBoard.calTotalValue(playAsWhite));
-                            Console.WriteLine($"{bot.totalResource}");
-                            //Console.WriteLine($"Stating game as {args[0]}....");
+
+                            mainBoard.troopsOnBoard[0, 8].markNextLegalMove(0,8);
+
+                            //analyse board and make a move here
+
                             mainBoard.writeBoardToFile(args[2]);
                         }
                         else

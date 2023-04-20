@@ -19,9 +19,9 @@ namespace Advance
         /*Zombies can move to and capture pieces on any of the three adjoining squares in front of
         the Zombie (that is, facing upwards for white and downwards for black)*/
 
-        public override void markNextLegalMove()
+        public override void markNextLegalMove(int currentX, int currentY)
         {
-            Console.WriteLine($"To be written for {this.GetType().Name}");
+            ;
         }
 
         public override void Capture()

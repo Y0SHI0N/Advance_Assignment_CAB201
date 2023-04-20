@@ -17,7 +17,7 @@ namespace Advance
         }
 
         //The Miner moves like a Rook does in chess
-        public override void markNextLegalMove()
+        public override void markNextLegalMove(int currentX, int currentY)
         {
             Console.WriteLine($"To be written for {this.GetType().Name}");
         }

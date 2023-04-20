@@ -50,7 +50,6 @@ namespace Advance
                         if (troopsOnBoard[i, j] == null) continue;
                         if (char.IsUpper(troopsOnBoard[i, j].symbol) == true)
                         {
-                            Console.WriteLine(troopsOnBoard[i, j].symbol);
                             total += troopsOnBoard[i, j].resourceValue;
                         }
                     }

@@ -11,7 +11,7 @@ namespace Advance
     internal class Program
     {
         public static readonly char[] legalTroopSymbols = "ZBMJSDCGzbmjsdcg.#\n".ToCharArray();
-        private static string botName = "HoChiMinh";
+        private static string botName = "Eudyptula";
         private static string[] firstArg = new string[3] {"white", "black", "name"};
         public static bool playAsWhite;
 

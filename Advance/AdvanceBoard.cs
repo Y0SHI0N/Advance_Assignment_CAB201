@@ -38,6 +38,11 @@ namespace Advance
             }
         }
 
+        public bool checkOccupy(int x, int y)
+        {
+            return Grid[x, y].currentlyOccupied;
+        }
+
         public int calTotalValue(bool playAsWhite)
         {
             int total = 0;

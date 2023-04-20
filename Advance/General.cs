@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
+
 namespace Advance
 {
     class General : Piece 
@@ -17,7 +18,7 @@ namespace Advance
 
         /*The General functions almost identically to the King in chess. It can move and capture on
         any of the 8 adjoining squares*/
-        public override void markNextLegalMove(int currentX, int currentY)
+        public override void markNextLegalMove(Board board, int currentX, int currentY)
         {
             int[] move1, move2, move3, move4, move5, move6, move7, move8;
             int[][] tempLegalMoves = new int[][]
@@ -54,6 +55,14 @@ namespace Advance
             for (int i = 0; i < tempLegalMoves.Length; i++)
             {
                 Console.WriteLine(tempLegalMoves[i][0] + "," + tempLegalMoves[i][1]);
+                int newTempX = tempLegalMoves[i][0];
+                int newTempY = tempLegalMoves[i][1];
+                if (board.checkOccupy(newTempX, newTempY) == true)
+                {
+                    //In progress: checking if the General can move to this occupied posistion by capturing the occuping unit on this cell
+                    Console.WriteLine($"Check Capture at {newTempX},{newTempY}");
+                }
+                else continue;
             }
 
 

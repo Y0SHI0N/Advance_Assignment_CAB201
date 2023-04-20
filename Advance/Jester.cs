@@ -17,7 +17,7 @@ namespace Advance
         }
 
         //It can move to any of the 8 adjoining squares
-        public override void markNextLegalMove(int currentX, int currentY)
+        public override void markNextLegalMove(Board board, int currentX, int currentY)
         {
             Console.WriteLine($"To be written for {this.GetType().Name}");
         }

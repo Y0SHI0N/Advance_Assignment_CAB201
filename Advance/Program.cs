@@ -45,7 +45,7 @@ namespace Advance
                             mainBoard.readFileToBoard(args[1]);
                             Bot bot = new Bot(playAsWhite, mainBoard.calTotalValue(playAsWhite));
 
-                            mainBoard.troopsOnBoard[0, 8].markNextLegalMove(0,8);
+                            mainBoard.troopsOnBoard[0, 8].markNextLegalMove(mainBoard,0,8);
 
                             //analyse board and make a move here
 

@@ -43,13 +43,14 @@ namespace Advance
             int total = 0;
             if (playAsWhite == true)
             {
-                for (int i = 1; i < 9; i++)
+                for (int i = 0; i < 9; i++)
                 {
-                    for (int j = 1; j < 9; j++)
+                    for (int j = 0; j < 9; j++)
                     {
                         if (troopsOnBoard[i, j] == null) continue;
                         if (char.IsUpper(troopsOnBoard[i, j].symbol) == true)
                         {
+                            Console.WriteLine(troopsOnBoard[i, j].symbol);
                             total += troopsOnBoard[i, j].resourceValue;
                         }
                     }

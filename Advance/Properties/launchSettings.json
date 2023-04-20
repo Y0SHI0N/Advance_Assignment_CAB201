@@ -2,7 +2,7 @@
   "profiles": {
     "Advance": {
       "commandName": "Project",
-      "commandLineArgs": "black \"C:\\Users\\Y0SHI0N\\Downloads\\outputtext\\input.txt\" \"C:\\Users\\Y0SHI0N\\Downloads\\outputtext\\output.txt\""
+      "commandLineArgs": "white \"C:\\Users\\Y0SHI0N\\Downloads\\outputtext\\input.txt\" \"C:\\Users\\Y0SHI0N\\Downloads\\outputtext\\output.txt\""
     }
   }
 }

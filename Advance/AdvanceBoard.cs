@@ -86,7 +86,6 @@ namespace Advance
                 {
                     for (int j = 0; j < 9; j++)
                     {
-                        ;
                         if (troopsOnBoard[i, j] == null)
                         {
                             continue;
@@ -164,7 +163,14 @@ namespace Advance
             {
                 troopsOnBoard[row, col] = new General(c, row, col);
             }
-            Grid[row, col].currentlyOccupied = true;
+            else
+            {
+                troopsOnBoard[row, col] = new emptyCell(c, row, col);
+            }
+            if (c != '.')
+            {
+                Grid[row, col].currentlyOccupied = true;
+            }
         }
 
         public void readFileToBoard(string path)
@@ -217,6 +223,7 @@ namespace Advance
                                     {
                                         addTroop(line[columnCnt], rowCnt, columnCnt);
                                     }
+
                                 }
                                 rowCnt++;
                             }

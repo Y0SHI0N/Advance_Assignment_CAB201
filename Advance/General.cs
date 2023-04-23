@@ -30,7 +30,7 @@ namespace Advance
             move5 = new int[2] { currentX - 1, currentY - 1 },
             move6 = new int[2] { currentX - 1, currentY + 1 },
             move7 = new int[2] { currentX + 1, currentY + 1 },
-            move8 = new int[2] { currentX - 1, currentY - 1 },
+            move8 = new int[2] { currentX + 1, currentY - 1 },
             };
             List<int[]> subArrays = tempLegalMoves.ToList();
 
@@ -57,16 +57,31 @@ namespace Advance
                 int newTempX = tempLegalMoves[i][0];
                 int newTempY = tempLegalMoves[i][1];
                 bool captureCheck;
+                bool wallCollision;
+
                 if (board.checkOccupy(newTempX, newTempY) == true)
                 {
                     captureCheck = true;
+                    if (board.troopsOnBoard[newTempX, newTempY].symbol == '#')
+                    {
+                        wallCollision = true;
+                    }
+                    else
+                    {
+                        wallCollision = false;
+                    }
                 }
                 else
                 {
                     captureCheck = false;
+                    wallCollision = false;
                 }
-                Move possibleMove = new Move(symbol,currentX,newTempX, currentY,newTempY,captureCheck,bot.totalResource,board);
-                bot.possibleLegalMoveList.Add(possibleMove);
+
+                if (wallCollision == false)
+                {
+                    Move possibleMove = new Move(symbol, currentX, newTempX, currentY, newTempY, captureCheck, bot.totalResource, board);
+                    bot.possibleLegalMoveList.Add(possibleMove);
+                }
             }
 
 

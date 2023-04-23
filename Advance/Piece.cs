@@ -17,4 +17,16 @@ namespace Advance
 
         public virtual void Capture() {; }
     }
+
+    internal class emptyCell : Piece
+    {
+        public emptyCell(char _symbol, int row, int col)
+        {
+            symbol = _symbol;
+            resourceValue = 0;
+            posistion[0] = row;
+            posistion[1] = col;
+            canMove = false;
+        }
+    }
 }

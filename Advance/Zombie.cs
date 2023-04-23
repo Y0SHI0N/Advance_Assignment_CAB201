@@ -21,7 +21,7 @@ namespace Advance
 
         public override void markNextLegalMove(Board board, Bot bot, int currentX, int currentY)
         {
-            ;
+            Console.WriteLine($"To be written for {this.GetType().Name}");
         }
 
         public override void Capture()

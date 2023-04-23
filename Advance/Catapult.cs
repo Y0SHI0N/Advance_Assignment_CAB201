@@ -16,7 +16,7 @@ namespace Advance
         }
         /*The Catapult can only move 1 square at a time, and only in the 4 cardinal directions. Also, it
         can only move to those squares – it cannot capture enemy pieces on those squares*/
-        public override void markNextLegalMove(Board board, int currentX, int currentY)
+        public override void markNextLegalMove(Board board, Bot bot, int currentX, int currentY)
         {
             Console.WriteLine($"To be written for {this.GetType().Name}");
         }

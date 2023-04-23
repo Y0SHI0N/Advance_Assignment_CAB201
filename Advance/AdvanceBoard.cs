@@ -19,7 +19,7 @@ namespace Advance
         }
     }
 
-    class Board
+    class Board :ICloneable
     {
         private char[] legalTroopSymbols = "ZBMJSDCGzbmjsdcg.#\n".ToCharArray();
         public int Size {get; set; }
@@ -76,6 +76,56 @@ namespace Advance
             }
             return total;
         }
+
+        public void scanBoard(bool playAsWhite, Board board, Bot bot)
+        {
+            char troop;
+            if (playAsWhite == true)
+            {
+                for (int i = 0; i < 9; i++)
+                {
+                    for (int j = 0; j < 9; j++)
+                    {
+                        ;
+                        if (troopsOnBoard[i, j] == null)
+                        {
+                            continue;
+                        }
+                        else
+                        {
+                            troop = troopsOnBoard[i, j].symbol;
+                        }
+                        if (char.IsUpper(troop) == true)
+                        {
+                            troopsOnBoard[i, j].markNextLegalMove(board, bot, i, j);
+                        }
+                    }
+                }
+            }
+            else
+            {
+                for (int i = 0; i < 9; i++)
+                {
+                    for (int j = 0; j < 9; j++)
+                    {
+                        if (troopsOnBoard[i, j] == null)
+                        { 
+                            continue; 
+                        }
+                        else
+                        {
+                            troop = troopsOnBoard[i, j].symbol;
+                        }
+
+                        if (char.IsUpper(troop) != true)
+                        {
+                            troopsOnBoard[i, j].markNextLegalMove(board, bot, i, j);
+                        }
+                    }
+                }
+            }
+        }
+
         public void addTroop(char c,int row, int col)
         {
             if (c == 'z' || c == 'Z')
@@ -219,6 +269,14 @@ namespace Advance
             {
                 Console.WriteLine(e.Message);
             }
+        }
+
+        public object Clone()
+        {
+            Board clone = new Board();
+            clone.Grid = this.Grid;
+            clone.troopsOnBoard = this.troopsOnBoard;
+            return clone;
         }
     }
 }

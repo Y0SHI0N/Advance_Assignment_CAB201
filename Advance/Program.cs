@@ -7,7 +7,6 @@ using System.Text;
 
 namespace Advance
 {
-
     internal class Program
     {
         public static readonly char[] legalTroopSymbols = "ZBMJSDCGzbmjsdcg.#\n".ToCharArray();
@@ -44,8 +43,14 @@ namespace Advance
                             Board mainBoard = new Board();
                             mainBoard.readFileToBoard(args[1]);
                             Bot bot = new Bot(playAsWhite, mainBoard.calTotalValue(playAsWhite));
+                            mainBoard.scanBoard(playAsWhite, mainBoard, bot);
 
-                            mainBoard.troopsOnBoard[0, 8].markNextLegalMove(mainBoard,0,8);
+                            Console.WriteLine("Possible moves are: \n");
+                            foreach (var item in bot.possibleLegalMoveList)
+                            {
+                                Console.WriteLine("move {0} from {1},{2} to {3},{4}", item.troop, item.oldX, item.oldY, item.newX, item.newY);
+                            }
+
 
                             //analyse board and make a move here
 

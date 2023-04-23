@@ -17,7 +17,7 @@ namespace Advance
 
         /*The Dragon is a powerful piece that can move any number of squares in a straight line in any
         of the 8 directions*/
-        public override void markNextLegalMove(Board board, int currentX, int currentY)
+        public override void markNextLegalMove(Board board, Bot bot, int currentX, int currentY)
         {
             Console.WriteLine($"To be written for {this.GetType().Name}");
         }

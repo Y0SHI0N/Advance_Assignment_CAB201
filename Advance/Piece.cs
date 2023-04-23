@@ -13,7 +13,7 @@ namespace Advance
         public bool inDanger { get; set; }
         public bool isProtected { get; set; }
 
-        public virtual void markNextLegalMove(Board board,int currentX, int currentY) {; }
+        public virtual void markNextLegalMove(Board board,Bot bot,int currentX, int currentY) {; }
 
         public virtual void Capture() {; }
     }

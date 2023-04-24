@@ -1,9 +1,7 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
-using System.Data;
 using System.IO;
-using System.Runtime.Intrinsics.X86;
-using System.Text;
 
 namespace Advance
 {
@@ -13,7 +11,7 @@ namespace Advance
         public int col { get; private set; }
         public bool currentlyOccupied { get; set; }
         public bool legalNextMove { get; set; }
-        public char value { get; set; }
+        public char troopSymbol { get; set; }
         public Cell(int x, int y)
         {
             row = x;
@@ -21,10 +19,12 @@ namespace Advance
         }
     }
 
-    class Board
+    class Board :ICloneable
     {
+        private char[] legalTroopSymbols = "ZBMJSDCGzbmjsdcg.#\n".ToCharArray();
         public int Size {get; set; }
         public Cell[,] Grid { get; set; }
+        public Piece[,] troopsOnBoard { get; set; } = new Piece[9,9];
         public Board(int s = 9) 
         {
             Size = s;
@@ -38,8 +38,161 @@ namespace Advance
             }
         }
 
+        public bool? checkOccupy(int x, int y)
+        {
+            try
+            {
+            return Grid[x, y].currentlyOccupied;
+            }
+            catch
+            { 
+                return null; 
+            }
+        }
+
+        public string checkTroopColour(int x, int y)
+        {
+            return troopsOnBoard[x, y].colour;
+        }
+
+        public int calTotalValue(bool playAsWhite)
+        {
+            int total = 0;
+            if (playAsWhite == true)
+            {
+                for (int i = 0; i < 9; i++)
+                {
+                    for (int j = 0; j < 9; j++)
+                    {
+                        if (troopsOnBoard[i, j] == null) continue;
+                        if (char.IsUpper(troopsOnBoard[i, j].symbol) == true)
+                        {
+                            total += troopsOnBoard[i, j].resourceValue;
+                        }
+                    }
+                }
+            }
+            else
+            {
+                for (int i = 0; i < 9; i++)
+                {
+                    for (int j = 0; j < 9; j++)
+                    {
+                        if (troopsOnBoard[i, j]==null) continue;
+                        if (char.IsUpper(troopsOnBoard[i, j].symbol) != true)
+                        {
+                            total += troopsOnBoard[i, j].resourceValue;
+                        }
+                    }
+                }
+            }
+            return total;
+        }
+
+        public void scanBoard(bool playAsWhite, Board board, Bot bot)
+        {
+            char troop;
+            if (playAsWhite == true)
+            {
+                for (int i = 0; i < 9; i++)
+                {
+                    for (int j = 0; j < 9; j++)
+                    {
+                        if (troopsOnBoard[i, j] == null)
+                        {
+                            continue;
+                        }
+                        else
+                        {
+                            troop = troopsOnBoard[i, j].symbol;
+                        }
+                        if (char.IsUpper(troop) == true)
+                        {
+                            troopsOnBoard[i, j].markNextLegalMove(board, bot, i, j);
+                        }
+                    }
+                }
+            }
+            else
+            {
+                for (int i = 0; i < 9; i++)
+                {
+                    for (int j = 0; j < 9; j++)
+                    {
+                        if (troopsOnBoard[i, j] == null)
+                        { 
+                            continue; 
+                        }
+                        else
+                        {
+                            troop = troopsOnBoard[i, j].symbol;
+                        }
+
+                        if (char.IsUpper(troop) != true)
+                        {
+                            troopsOnBoard[i, j].markNextLegalMove(board, bot, i, j);
+                        }
+                    }
+                }
+            }
+        }
+
+        public void addTroop(char c,int row, int col)
+        {
+            if (c == 'z' || c == 'Z')
+            {
+                troopsOnBoard[row, col] = new Zombie(c, row, col);
+            }
+            else if (c == 'b'|| c== 'B')
+            {
+                troopsOnBoard[row, col] = new Builder(c, row, col);
+            }
+            else if (c == '#')
+            {
+                troopsOnBoard[row, col] = new Wall(c, row, col);
+            }
+            else if (c == 'm' || c == 'M')
+            {
+                troopsOnBoard[row, col] = new Miner(c, row, col);
+            }
+            else if (c == 'j' || c == 'J')
+            {
+                troopsOnBoard[row, col] = new Jester(c, row, col);
+            }
+            else if (c == 's' || c == 'S')
+            {
+                troopsOnBoard[row, col] = new Sentinel(c, row, col);
+            }
+            else if (c == 'c' || c == 'C')
+            {
+                troopsOnBoard[row, col] = new Catapult(c, row, col);
+            }
+            else if (c == 'd' || c == 'D')
+            {
+                troopsOnBoard[row, col] = new Dragon(c, row, col);
+            }
+            else if (c == 'g' || c == 'G')
+            {
+                troopsOnBoard[row, col] = new General(c, row, col);
+            }
+            else
+            {
+                troopsOnBoard[row, col] = new emptyCell(c, row, col);
+            }
+
+            if (c != '.')
+            {
+                Grid[row, col].currentlyOccupied = true;
+            }
+            else
+            {
+                Grid[row, col].currentlyOccupied = false;
+            }
+        }
+
         public void readFileToBoard(string path)
         {
+            bool invalidSymbol = false;
             try
             {
                 if (File.Exists(path))
@@ -47,19 +200,62 @@ namespace Advance
                     using (StreamReader reader = new StreamReader(path))
                     {
                         int rowCnt = 0;
-                        Console.WriteLine("From file:");
+                        //Console.WriteLine("From file:");
                         while (!reader.EndOfStream)
                         {
                             string line = reader.ReadLine();
-                            Console.WriteLine(line);
+                            //Console.WriteLine(line);
                             for (int columnCnt = 0; columnCnt < Size; columnCnt++)
                             {
-                                Grid[rowCnt, columnCnt].value = line[columnCnt];
+                                if (!Array.Exists(legalTroopSymbols, x => x == line[columnCnt]))
+                                {
+                                    invalidSymbol = true;
+                                    break;
+                                }
                             }
-                            rowCnt++;
+                            if (invalidSymbol == true)
+                            {
+                                break;
+                            }
+                            else
+                            {
+                                rowCnt++;
+                            }
                         }
                         reader.Close();
                     }
+
+                    if (invalidSymbol != true)
+                    {
+                        using (StreamReader reader = new StreamReader(path))
+                        {
+                            int rowCnt = 0;
+                            while (!reader.EndOfStream)
+                            {
+                                string line = reader.ReadLine();
+                                for (int columnCnt = 0; columnCnt < Size; columnCnt++)
+                                {
+                                    Grid[rowCnt, columnCnt].troopSymbol = line[columnCnt];
+                                    if ((line[columnCnt] != '.' )|| (line[columnCnt] != '\n'))
+                                    {
+                                        addTroop(line[columnCnt], rowCnt, columnCnt);
+                                    }
+
+                                }
+                                rowCnt++;
+                            }
+                        }
+                    }
+                    else
+                    {
+                        Console.WriteLine("Read Error: Invalid symbol detected!");
+                        System.Environment.Exit(1);
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("Read Error: Invalid file path");
+                    System.Environment.Exit(1);
                 }
             }
             catch (Exception e)
@@ -77,7 +273,7 @@ namespace Advance
             {
                 for(int j = 0;j < Size; j++)
                 {
-                    text = text + Grid[i,j].value.ToString();
+                    text = text + Grid[i,j].troopSymbol.ToString();
                 }
                 text = text + "\n";
             }
@@ -97,6 +293,14 @@ namespace Advance
             {
                 Console.WriteLine(e.Message);
             }
+        }
+
+        public object Clone()
+        {
+            Board clone = new Board();
+            clone.Grid = this.Grid;
+            clone.troopsOnBoard = this.troopsOnBoard;
+            return clone;
         }
     }
 }

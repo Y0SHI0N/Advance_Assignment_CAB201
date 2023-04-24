@@ -1,17 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
 using System.Reflection.PortableExecutable;
 using System.Text;
 
 namespace Advance
 {
-
     internal class Program
     {
         public static readonly char[] legalTroopSymbols = "ZBMJSDCGzbmjsdcg.#\n".ToCharArray();
         private static string botName = "Eudyptula";
         private static string[] firstArg = new string[3] {"white", "black", "name"};
+        public static bool playAsWhite;
 
         public static void outputError(string message)
         {
@@ -35,12 +36,23 @@ namespace Advance
                     // check if the argument is 'white' or 'black'. if true, then proceed, otherwise abort
                     if (argsOneBlackOrWhite == true)
                     {
+                        playAsWhite = args[0].ToLower() == "white" ? true : false;
                         // input validation for second and third argument
                         if ((File.Exists(args[1]) && File.Exists(args[2])) == true)
                         {
                             Board mainBoard = new Board();
                             mainBoard.readFileToBoard(args[1]);
-                            Console.WriteLine("Stating game....");
+                            Bot bot = new Bot(playAsWhite, mainBoard.calTotalValue(playAsWhite));
+                            mainBoard.scanBoard(playAsWhite, mainBoard, bot);
+
+
+                            //analyse board and make a move here
+                            Console.WriteLine("There are {0} total legal moves:", bot.possibleLegalMoveList.Count());
+                            foreach (var item in bot.possibleLegalMoveList)
+                            {
+                                Console.WriteLine("\tmove {0} from row {1} col {2} to row {3} col {4}", item.troop, item.oldX + 1, item.oldY + 1, item.newX + 1, item.newY + 1);
+                            }
+
                             mainBoard.writeBoardToFile(args[2]);
                         }
                         else

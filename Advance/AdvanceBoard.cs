@@ -38,9 +38,21 @@ namespace Advance
             }
         }
 
-        public bool checkOccupy(int x, int y)
+        public bool? checkOccupy(int x, int y)
         {
+            try
+            {
             return Grid[x, y].currentlyOccupied;
+            }
+            catch
+            { 
+                return null; 
+            }
+        }
+
+        public string checkTroopColour(int x, int y)
+        {
+            return troopsOnBoard[x, y].colour;
         }
 
         public int calTotalValue(bool playAsWhite)
@@ -167,9 +179,14 @@ namespace Advance
             {
                 troopsOnBoard[row, col] = new emptyCell(c, row, col);
             }
+
             if (c != '.')
             {
                 Grid[row, col].currentlyOccupied = true;
+            }
+            else
+            {
+                Grid[row, col].currentlyOccupied = false;
             }
         }
 

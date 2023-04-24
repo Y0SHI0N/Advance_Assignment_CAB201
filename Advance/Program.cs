@@ -45,14 +45,13 @@ namespace Advance
                             Bot bot = new Bot(playAsWhite, mainBoard.calTotalValue(playAsWhite));
                             mainBoard.scanBoard(playAsWhite, mainBoard, bot);
 
-                            Console.WriteLine("Possible moves are: \n");
-                            foreach (var item in bot.possibleLegalMoveList)
-                            {
-                                Console.WriteLine("move {0} from {1},{2} to {3},{4}", item.troop, item.oldX, item.oldY, item.newX, item.newY);
-                            }
-
 
                             //analyse board and make a move here
+                            Console.WriteLine("There are {0} total legal moves:", bot.possibleLegalMoveList.Count());
+                            foreach (var item in bot.possibleLegalMoveList)
+                            {
+                                Console.WriteLine("\tmove {0} from row {1} col {2} to row {3} col {4}", item.troop, item.oldX + 1, item.oldY + 1, item.newX + 1, item.newY + 1);
+                            }
 
                             mainBoard.writeBoardToFile(args[2]);
                         }

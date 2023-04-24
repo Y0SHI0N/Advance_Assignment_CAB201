@@ -18,21 +18,22 @@ namespace Advance
 
         /*The General functions almost identically to the King in chess. It can move and capture on
         any of the 8 adjoining squares*/
-        public override void markNextLegalMove(Board board,Bot bot, int currentX, int currentY)
+        public override void markNextLegalMove(Board board,Bot bot, int curRow, int curColumn)
         {
             int[] move1, move2, move3, move4, move5, move6, move7, move8;
             int[][] tempLegalMoves = new int[][]
             {
-            move1 = new int[2] { currentX + 1, currentY },
-            move2 = new int[2] { currentX - 1, currentY },
-            move3 = new int[2] { currentX, currentY + 1 },
-            move4 = new int[2] { currentX, currentY - 1 },
-            move5 = new int[2] { currentX - 1, currentY - 1 },
-            move6 = new int[2] { currentX - 1, currentY + 1 },
-            move7 = new int[2] { currentX + 1, currentY + 1 },
-            move8 = new int[2] { currentX + 1, currentY - 1 },
+            move1 = new int[2] { curRow + 1, curColumn },
+            move2 = new int[2] { curRow - 1, curColumn },
+            move3 = new int[2] { curRow, curColumn + 1 },
+            move4 = new int[2] { curRow, curColumn - 1 },
+            move5 = new int[2] { curRow - 1, curColumn - 1 },
+            move6 = new int[2] { curRow - 1, curColumn + 1 },
+            move7 = new int[2] { curRow + 1, curColumn + 1 },
+            move8 = new int[2] { curRow + 1, curColumn - 1 },
             };
             List<int[]> subArrays = tempLegalMoves.ToList();
+
 
             int index = 0;
             int modifier = 0;
@@ -68,10 +69,17 @@ namespace Advance
                     }
                     else
                     {
-                        wallCollision = false;
+                        if (this.colour != (board.troopsOnBoard[newTempX, newTempY].colour))
+                        {
+                            wallCollision = false;
+                        }
+                        else
+                        {
+                            wallCollision = true;
+                        }
                     }
                 }
-                else
+                else 
                 {
                     captureCheck = false;
                     wallCollision = false;
@@ -79,7 +87,7 @@ namespace Advance
 
                 if (wallCollision == false)
                 {
-                    Move possibleMove = new Move(symbol, currentX, newTempX, currentY, newTempY, captureCheck, bot.totalResource, board);
+                    Move possibleMove = new Move(symbol, curRow, newTempX, curColumn, newTempY, captureCheck, bot.totalResource, board);
                     bot.possibleLegalMoveList.Add(possibleMove);
                 }
             }

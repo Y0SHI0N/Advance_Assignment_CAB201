@@ -62,19 +62,21 @@ namespace Advance
 
                 if (board.checkOccupy(newTempX, newTempY) == true)
                 {
-                    captureCheck = true;
                     if (board.troopsOnBoard[newTempX, newTempY].symbol == '#')
                     {
+                        captureCheck = false;
                         wallCollision = true;
                     }
                     else
                     {
                         if (this.colour != (board.troopsOnBoard[newTempX, newTempY].colour))
                         {
+                            captureCheck = true;
                             wallCollision = false;
                         }
                         else
                         {
+                            captureCheck = false;
                             wallCollision = true;
                         }
                     }
@@ -91,10 +93,6 @@ namespace Advance
                     bot.possibleLegalMoveList.Add(possibleMove);
                 }
             }
-
-
-
-
         }
         public override void Capture()
         {

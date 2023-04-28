@@ -51,6 +51,10 @@ namespace Advance
                             foreach (var item in bot.possibleLegalMoveList)
                             {
                                 Console.WriteLine("\tmove {0} from row {1} col {2} to row {3} col {4}", item.troop, item.oldX + 1, item.oldY + 1, item.newX + 1, item.newY + 1);
+                                if (item.buildWall == true)
+                                {
+                                    Console.WriteLine("\tBuilder at row {0} col {1} can build a wall at row {2} col {3}", item.oldX + 1, item.oldY + 1, item.newX + 1, item.newY + 1);
+                                }
                             }
 
                             mainBoard.writeBoardToFile(args[2]);

@@ -17,16 +17,90 @@ namespace Advance
         }
 
         //It can move to any of the 8 adjoining squares
-        public override void markNextLegalMove(Board board, Bot bot, int currentX, int currentY)
+        public override void markNextLegalMove(Board board, Bot bot, int curRow, int curColumn)
         {
-            Console.WriteLine($"To be written for {this.GetType().Name}");
+            int[] move1, move2, move3, move4, move5, move6, move7, move8;
+            int[][] tempLegalMoves = new int[][]
+            {
+            move1 = new int[2] { curRow + 1, curColumn },
+            move2 = new int[2] { curRow - 1, curColumn },
+            move3 = new int[2] { curRow, curColumn + 1 },
+            move4 = new int[2] { curRow, curColumn - 1 },
+            move5 = new int[2] { curRow - 1, curColumn - 1 },
+            move6 = new int[2] { curRow - 1, curColumn + 1 },
+            move7 = new int[2] { curRow + 1, curColumn + 1 },
+            move8 = new int[2] { curRow + 1, curColumn - 1 },
+            };
+            List<int[]> subArrays = tempLegalMoves.ToList();
+
+
+            int index = 0;
+            int modifier = 0;
+
+            while (index < tempLegalMoves.Length)
+            {
+                if ((tempLegalMoves[index][0] < 9 && tempLegalMoves[index][0] > -1) && (tempLegalMoves[index][1] < 9 && tempLegalMoves[index][1] > -1))
+                {
+                    ;
+                }
+                else
+                {
+                    subArrays.RemoveAt(index - modifier);
+                    modifier++;
+                }
+                index++;
+            }
+            tempLegalMoves = subArrays.ToArray();
+
+            for (int i = 0; i < tempLegalMoves.Length; i++)
+            {
+                int newTempX = tempLegalMoves[i][0];
+                int newTempY = tempLegalMoves[i][1];
+                bool captureCheck = false; // cannot capture anything
+                bool swapCheck;
+                bool convertCheck;
+                bool wallCollision;
+
+                //check to see if there is something in the way
+                if (board.checkOccupy(newTempX, newTempY) == true)
+                {
+                    wallCollision = true;
+                }
+                else
+                {
+                    wallCollision = false;
+                }
+
+                if (wallCollision == false)
+                {
+                    Move possibleMove = new Move(symbol, curRow, newTempX, curColumn, newTempY, captureCheck, bot.totalResource, board);
+                    bot.possibleLegalMoveList.Add(possibleMove);
+                }
+                else
+                {
+                    if (board.troopsOnBoard[newTempX, newTempY].symbol != '#')
+                    {
+                        if (this.colour != (board.troopsOnBoard[newTempX, newTempY].colour))
+                        {
+                            convertCheck = true;
+                            swapCheck = false;
+                            Move possibleMove = new Move(symbol, curRow, newTempX, curColumn, newTempY, captureCheck, bot.totalResource, board,false,convertCheck,swapCheck);
+                            bot.possibleLegalMoveList.Add(possibleMove);
+                        }
+                        else
+                        {
+                            convertCheck = false;
+                            swapCheck = true;
+                            Move possibleMove = new Move(symbol, curRow, newTempX, curColumn, newTempY, captureCheck, bot.totalResource, board, false, convertCheck, swapCheck);
+                            bot.possibleLegalMoveList.Add(possibleMove);
+                        }
+                    }
+                }
+            }
         }
 
         //The Jester is the only piece that cannot capture other pieces
-        public override void Capture()
-        {
-            Console.WriteLine($"Not possible for {this.GetType().Name}");
-        }
+
 
         /*The first ability is that the Jester is nimble and can exchange places with a friendly piece, if it
         is on one of the adjoining squares. The only limitation here is that the Jester cannot

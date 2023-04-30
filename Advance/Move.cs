@@ -15,12 +15,13 @@ namespace Advance
         public bool buildWall { get; set; }
         public bool Bribe { get; set; }
         public bool SwapPlace { get; set; }
+        public bool breakWall { get; set; }
         public Board cloneBoard { get; set; }
         public Board newBoard { get; set; }
         public int initialResources { get; set; }
         public int outcomeResources { get; set; }
 
-        public Move(char _troop,int oldX, int newX, int oldY, int newY, bool checkForCapture, int initialResources, Board oldBoard, bool wall = false, bool bribe =false, bool swapPlace = false)
+        public Move(char _troop,int oldX, int newX, int oldY, int newY, bool checkForCapture, int initialResources, Board oldBoard, bool wall = false, bool bribe = false, bool swapPlace = false, bool breakWall = false)
         {
             this.troop = _troop;
             this.oldX = oldX;
@@ -33,6 +34,7 @@ namespace Advance
             this.checkForCapture = checkForCapture;
             this.initialResources = initialResources;
             this.cloneBoard = (Board)oldBoard.Clone();
+            this.breakWall = breakWall;
         }
     }
 }

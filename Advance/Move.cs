@@ -21,14 +21,14 @@ namespace Advance
         public int initialResources { get; set; }
         public int outcomeResources { get; set; }
 
-        public Move(char _troop,int oldX, int newX, int oldY, int newY, bool checkForCapture, int initialResources, Board oldBoard, bool wall = false, bool bribe = false, bool swapPlace = false, bool breakWall = false)
+        public Move(char _troop,int oldX, int newX, int oldY, int newY, bool checkForCapture, int initialResources, Board oldBoard, bool _buildWall = false, bool bribe = false, bool swapPlace = false, bool breakWall = false)
         {
             this.troop = _troop;
             this.oldX = oldX;
             this.newX = newX;
             this.oldY = oldY;
             this.newY = newY;
-            this.buildWall = wall;
+            this.buildWall = _buildWall;
             this.Bribe = bribe;
             this.SwapPlace = swapPlace;
             this.checkForCapture = checkForCapture;

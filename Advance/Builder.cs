@@ -100,6 +100,10 @@ namespace Advance
                     {
                         Move possibleMove = new Move(symbol, curRow, newTempX, curColumn, newTempY, captureCheck, bot.totalResource, board, buildWall);
                         bot.possibleLegalMoveList.Add(possibleMove);
+
+                        possibleMove = new Move(symbol, curRow, newTempX, curColumn, newTempY, captureCheck, bot.totalResource, board);
+                        bot.possibleLegalMoveList.Add(possibleMove);
+
                     }
                 }
             }

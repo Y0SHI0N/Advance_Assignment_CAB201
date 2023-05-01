@@ -79,7 +79,6 @@ namespace Advance
         public void checkAimDestination(Board board, Bot bot, int curRow, int curColumn)
         {
             bool captureCheck = true;
-            Console.WriteLine($"To be written for {this.GetType().Name} to check for target accquisision");
             List<int[]> tempTargetList = new List<int[]>();
 
             // Calculate coordinates 3 squares away in a cardinal direction

@@ -89,6 +89,54 @@ namespace Advance
             return total;
         }
 
+        public void setProtection()
+        {
+            for (int x = 0; x < 9; x++)
+            {
+                for (int y = 0; y < 9; y++)
+                {
+                    if (troopsOnBoard[x, y].symbol == 's')
+                    {
+                        if (x + 1 < 9)
+                        {
+                            troopsOnBoard[x + 1, y].isProtected = (troopsOnBoard[x + 1, y].symbol != 's' && troopsOnBoard[x + 1, y].colour != "White" && troopsOnBoard[x + 1, y].symbol !='#');
+                        }
+                        if (x - 1 > -1)
+                        {
+                            troopsOnBoard[x - 1, y].isProtected = (troopsOnBoard[x - 1, y].symbol != 's' && troopsOnBoard[x - 1, y].colour != "White" && troopsOnBoard[x + 1, y].symbol != '#');
+                        }
+                        if (y + 1 < 9)
+                        {
+                            troopsOnBoard[x, y + 1].isProtected = (troopsOnBoard[x, y + 1].symbol != 's' && troopsOnBoard[x, y + 1].colour != "White" && troopsOnBoard[x + 1, y].symbol != '#');
+                        }
+                        if (y - 1 > -1)
+                        {
+                            troopsOnBoard[x, y - 1].isProtected = (troopsOnBoard[x, y - 1].symbol != 's' && troopsOnBoard[x, y - 1].colour != "White" && troopsOnBoard[x + 1, y].symbol != '#');
+                        }
+                    }
+                    else if (troopsOnBoard[x, y].symbol == 'S')
+                    {
+                        if (x + 1 < 9)
+                        {
+                            troopsOnBoard[x + 1, y].isProtected = (troopsOnBoard[x + 1, y].symbol != 'S' && troopsOnBoard[x + 1, y].colour != "Black" && troopsOnBoard[x + 1, y].symbol != '#');
+                        }
+                        if (x - 1 > -1)
+                        {
+                            troopsOnBoard[x - 1, y].isProtected = (troopsOnBoard[x - 1, y].symbol != 'S' && troopsOnBoard[x - 1, y].colour != "Black" && troopsOnBoard[x + 1, y].symbol != '#');
+                        }
+                        if (y + 1 < 9)
+                        {
+                            troopsOnBoard[x, y + 1].isProtected = (troopsOnBoard[x, y + 1].symbol != 'S' && troopsOnBoard[x, y + 1].colour != "Black" && troopsOnBoard[x + 1, y].symbol != '#');
+                        }
+                        if (y - 1 > -1)
+                        {
+                            troopsOnBoard[x, y - 1].isProtected = (troopsOnBoard[x, y - 1].symbol != 'S' && troopsOnBoard[x, y - 1].colour != "Black" && troopsOnBoard[x + 1, y].symbol != '#');
+                        }
+                    }
+                }
+            }
+        }
+
         public void scanBoard(bool playAsWhite, Board board, Bot bot)
         {
             char troop;
@@ -106,8 +154,10 @@ namespace Advance
                         {
                             troop = troopsOnBoard[i, j].symbol;
                         }
+
                         if (char.IsUpper(troop) == true)
                         {
+                            // set protection property for Sentinels
                             troopsOnBoard[i, j].markNextLegalMove(board, bot, i, j);
                         }
                     }
@@ -130,6 +180,7 @@ namespace Advance
 
                         if (char.IsUpper(troop) != true)
                         {
+                            // set protection property for Sentinels
                             troopsOnBoard[i, j].markNextLegalMove(board, bot, i, j);
                         }
                     }

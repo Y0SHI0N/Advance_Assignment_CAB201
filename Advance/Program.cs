@@ -42,13 +42,37 @@ namespace Advance
                         {
                             Board mainBoard = new Board();
                             mainBoard.readFileToBoard(args[1]);
-                            Bot bot = new Bot(playAsWhite, mainBoard.calTotalValue(playAsWhite));
-                            mainBoard.scanBoard(playAsWhite, mainBoard, bot);
+                            Bot botWhite = new Bot(playAsWhite, mainBoard.calTotalValue(playAsWhite));
+                            Bot botBlack = new Bot(!playAsWhite, mainBoard.calTotalValue(playAsWhite));
+
+                            mainBoard.setProtection();
+
+                            //for (int x = 0; x < 9; x++)
+                            //{
+                            //    for (int y = 0; y < 9; y++)
+                            //    { 
+                            //        if (mainBoard.troopsOnBoard[x,y].isProtected == true)
+                            //        {
+                            //            Console.WriteLine($"grid [{x+1},{y+1}] is protected from capture");
+                            //        }
+                            //    }
+                            //}
+
+
+                            if (playAsWhite == true)
+                            {
+                                mainBoard.scanBoard(playAsWhite, mainBoard, botWhite);
+                            }
+                            else
+                            {
+                                mainBoard.scanBoard(playAsWhite, mainBoard, botBlack);
+                            }
+                            
 
 
                             //analyse board and make a move here
-                            Console.WriteLine("There are {0} total legal moves:", bot.possibleLegalMoveList.Count());
-                            foreach (var item in bot.possibleLegalMoveList)
+                            Console.WriteLine("There are {0} total legal moves:", botWhite.possibleLegalMoveList.Count());
+                            foreach (var item in botWhite.possibleLegalMoveList)
                             {
                                 if (item.buildWall == true)
                                 {

@@ -71,7 +71,7 @@ namespace Advance
 
 
                             //analyse board and make a move here
-                            Console.WriteLine("There are {0} total legal moves:", botWhite.possibleLegalMoveList.Count());
+                            Console.WriteLine("There are {0} total legal moves for white:", botWhite.possibleLegalMoveList.Count());
                             foreach (var item in botWhite.possibleLegalMoveList)
                             {
                                 if (item.buildWall == true)
@@ -87,6 +87,35 @@ namespace Advance
                                     Console.WriteLine("\tJester at row {0} col {1} can bribe an enemy at row {2} col {3}", item.oldX + 1, item.oldY + 1, item.newX + 1, item.newY + 1);
                                 }
                                 else if(item.breakWall == true)
+                                {
+                                    Console.WriteLine("\tMiner at row {0} col {1} can break a wall at row {2} col {3}", item.oldX + 1, item.oldY + 1, item.newX + 1, item.newY + 1);
+                                }
+                                else if (item.checkForCapture == true)
+                                {
+                                    Console.WriteLine("\t{0} is capturing an enemy piece at row {1} col {2} from row {3} col {4}", item.troop, item.newX + 1, item.newY + 1, item.oldX + 1, item.oldY + 1);
+                                }
+                                else
+                                {
+                                    Console.WriteLine("\tmove {0} from row {1} col {2} to row {3} col {4}", item.troop, item.oldX + 1, item.oldY + 1, item.newX + 1, item.newY + 1);
+                                }
+                            }
+
+                            Console.WriteLine("There are {0} total legal moves for black:", botBlack.possibleLegalMoveList.Count());
+                            foreach (var item in botBlack.possibleLegalMoveList)
+                            {
+                                if (item.buildWall == true)
+                                {
+                                    Console.WriteLine("\tBuilder at row {0} col {1} can build a wall at row {2} col {3}", item.oldX + 1, item.oldY + 1, item.newX + 1, item.newY + 1);
+                                }
+                                else if (item.SwapPlace == true)
+                                {
+                                    Console.WriteLine("\tJester at row {0} col {1} can swap place with a friendly at row {2} col {3}", item.oldX + 1, item.oldY + 1, item.newX + 1, item.newY + 1);
+                                }
+                                else if (item.Bribe == true)
+                                {
+                                    Console.WriteLine("\tJester at row {0} col {1} can bribe an enemy at row {2} col {3}", item.oldX + 1, item.oldY + 1, item.newX + 1, item.newY + 1);
+                                }
+                                else if (item.breakWall == true)
                                 {
                                     Console.WriteLine("\tMiner at row {0} col {1} can break a wall at row {2} col {3}", item.oldX + 1, item.oldY + 1, item.newX + 1, item.newY + 1);
                                 }

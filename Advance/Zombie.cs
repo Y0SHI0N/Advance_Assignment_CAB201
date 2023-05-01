@@ -25,7 +25,7 @@ namespace Advance
             int[] move1, move2, move3, leap1, leap2, leap3;
             int[][] tempLegalMoves = new int[][]
             {
-            move1 = (this.colour == "White") ? new int[2] { curRow - 1, curColumn - 1} : new int[2] {curRow - 1, curColumn - 1},
+            move1 = (this.colour == "White") ? new int[2] { curRow - 1, curColumn - 1} : new int[2] {curRow + 1, curColumn - 1},
             move2 = (this.colour == "White") ? new int[2] { curRow - 1, curColumn} : new int[2] { curRow + 1, curColumn },
             move3 = (this.colour == "White") ? new int[2] { curRow - 1, curColumn + 1} : new int[2] { curRow + 1, curColumn + 1},
             };
@@ -35,7 +35,7 @@ namespace Advance
             /*if there is an enemy piece two squares away in any of those three directions and
             the intermediate square is empty, a Zombie can perform a leaping attack, capturing the
             piece on that square*/
-            leap1 = (this.colour == "White") ? new int[2] {curRow - 2, curColumn - 2} : new int[2] {curRow - 2, curColumn - 2},
+            leap1 = (this.colour == "White") ? new int[2] {curRow - 2, curColumn - 2} : new int[2] {curRow + 2, curColumn - 2},
             leap2 = (this.colour == "White") ? new int[2] { curRow - 2, curColumn} : new int[2] {  curRow + 2, curColumn},
             leap3 = (this.colour == "White") ? new int[2] {curRow - 2, curColumn + 2 } : new int[2] {  curRow + 2, curColumn + 2},
             };

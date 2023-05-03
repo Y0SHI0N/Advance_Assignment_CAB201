@@ -124,8 +124,17 @@ namespace Advance
                     {
                         if (board.troopsOnBoard[newTempX, newTempY].colour != this.colour) // destination contains enemy troop, legal move
                         {
-                            captureCheck = true;
-                            wallCollision = false;
+                            if (board.troopsOnBoard[newTempX, newTempY].isProtected == false)
+                            {
+                                captureCheck = true;
+                                wallCollision = false;
+                            }
+                            else
+                            {
+                                captureCheck = false;
+                                wallCollision = true;
+                            }
+
                         }
                         else if (board.troopsOnBoard[newTempX, newTempY].colour == this.colour) //destination contains friendly, illigal move
                         {
@@ -207,9 +216,16 @@ namespace Advance
                         {
                             if (board.troopsOnBoard[newTempX, newTempY].colour != this.colour) // destination contains enemy troop, legal move
                             {
-                                captureCheck = true;
-                                Move possibleMove = new Move(symbol, curRow, newTempX, curColumn, newTempY, captureCheck, bot.totalResource, board);
-                                bot.possibleLegalMoveList.Add(possibleMove);
+                                if (board.troopsOnBoard[newTempX, newTempY].isProtected == false)
+                                {
+                                    captureCheck = true;
+                                    Move possibleMove = new Move(symbol, curRow, newTempX, curColumn, newTempY, captureCheck, bot.totalResource, board);
+                                    bot.possibleLegalMoveList.Add(possibleMove);
+                                }
+                                else
+                                {
+                                    captureCheck = false;
+                                }
                             }
                             else // destination have no colore, denoting that it could be a wall or empty, however, the wall case have been handled, therefore implying empty cell therefore cannot leap
                             {

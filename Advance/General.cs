@@ -71,8 +71,16 @@ namespace Advance
                     {
                         if (this.colour != (board.troopsOnBoard[newTempX, newTempY].colour))
                         {
-                            captureCheck = true;
-                            wallCollision = false;
+                            if (board.troopsOnBoard[newTempX, newTempY].isProtected == false)
+                            {
+                                captureCheck = true;
+                                wallCollision = false;
+                            }
+                            else
+                            {
+                                captureCheck = false;
+                                wallCollision = true;
+                            }
                         }
                         else
                         {

@@ -31,14 +31,18 @@ namespace Advance
                 bool breakWall;
                 if (board.checkOccupy(newTempX, newTempY) == true) //check if the destination being occupied
                 {
-                     breakWall = board.troopsOnBoard[newTempX, newTempY].symbol == '#';
+                    breakWall = board.troopsOnBoard[newTempX, newTempY].symbol == '#';
                     captureCheck = this.colour != (board.troopsOnBoard[newTempX, newTempY].colour);
                     if (breakWall || captureCheck) // true if either: there is a wall at destination, or there is enemy piece at destination
                     {
-                        captureCheck = true;
-                        Move possibleMove = new Move(symbol, curRow, newTempX, curColumn, newTempY, captureCheck, bot.totalResource, board,false,false,false,breakWall); //add all the moves prior to its destination
-                        bot.possibleLegalMoveList.Add(possibleMove);
-                        break;
+                        if (board.troopsOnBoard[newTempX, newTempY].isProtected == false)
+                        {
+                            captureCheck = true;
+                            Move possibleMove = new Move(symbol, curRow, newTempX, curColumn, newTempY, captureCheck, bot.totalResource, board, false, false, false, breakWall); //add all the moves prior to its destination
+                            bot.possibleLegalMoveList.Add(possibleMove);
+                            break;
+                        }
+                        else break;
                     }
                     else break;
                 }

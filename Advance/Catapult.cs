@@ -114,7 +114,7 @@ namespace Advance
             {
                 int newTempX = potentialTarget[0];
                 int newTempY = potentialTarget[1];
-                if (board.checkOccupy(newTempX, newTempY) == true) //check if the destination being occupied
+                if (board.checkOccupy(newTempX, newTempY) == true && board.troopsOnBoard[newTempX, newTempY].isProtected != true) //check if the destination being occupied
                 {
                     if (board.troopsOnBoard[newTempX, newTempY].symbol != '#' && this.colour != (board.troopsOnBoard[newTempX, newTempY].colour))
                     {

@@ -49,10 +49,14 @@ namespace Advance
                         {
                             if (adjacentCheck == false) // check for if they are adjacent
                             {
-                                captureCheck = true;
-                                Move possibleMove = new Move(symbol, curRow, newTempX, curColumn, newTempY, captureCheck, bot.totalResource, board); //add all the moves prior to its destination
-                                bot.possibleLegalMoveList.Add(possibleMove);
-                                break;
+                                if (board.troopsOnBoard[newTempX, newTempY].isProtected == false)
+                                {
+                                    captureCheck = true;
+                                    Move possibleMove = new Move(symbol, curRow, newTempX, curColumn, newTempY, captureCheck, bot.totalResource, board); //add all the moves prior to its destination
+                                    bot.possibleLegalMoveList.Add(possibleMove);
+                                    break;
+                                }
+                                else { break; } // enemies are protected by a sentinel
                             }
                             else { break; }// enemies are adjacent, cannot capture
                         }

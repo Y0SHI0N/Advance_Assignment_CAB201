@@ -99,38 +99,38 @@ namespace Advance
                     {
                         if (x + 1 < 9)
                         {
-                            troopsOnBoard[x + 1, y].isProtected = (troopsOnBoard[x + 1, y].symbol != 's' && troopsOnBoard[x + 1, y].colour != "White" && troopsOnBoard[x + 1, y].symbol !='#');
+                            troopsOnBoard[x + 1, y].isProtected = (troopsOnBoard[x + 1, y].symbol != 's' && troopsOnBoard[x + 1, y].colour == "Black" && troopsOnBoard[x + 1, y].symbol !='#');
                         }
                         if (x - 1 > -1)
                         {
-                            troopsOnBoard[x - 1, y].isProtected = (troopsOnBoard[x - 1, y].symbol != 's' && troopsOnBoard[x - 1, y].colour != "White" && troopsOnBoard[x + 1, y].symbol != '#');
+                            troopsOnBoard[x - 1, y].isProtected = (troopsOnBoard[x - 1, y].symbol != 's' && troopsOnBoard[x - 1, y].colour == "Black" && troopsOnBoard[x + 1, y].symbol != '#');
                         }
                         if (y + 1 < 9)
                         {
-                            troopsOnBoard[x, y + 1].isProtected = (troopsOnBoard[x, y + 1].symbol != 's' && troopsOnBoard[x, y + 1].colour != "White" && troopsOnBoard[x + 1, y].symbol != '#');
+                            troopsOnBoard[x, y + 1].isProtected = (troopsOnBoard[x, y + 1].symbol != 's' && troopsOnBoard[x, y + 1].colour == "Black" && troopsOnBoard[x + 1, y].symbol != '#');
                         }
                         if (y - 1 > -1)
                         {
-                            troopsOnBoard[x, y - 1].isProtected = (troopsOnBoard[x, y - 1].symbol != 's' && troopsOnBoard[x, y - 1].colour != "White" && troopsOnBoard[x + 1, y].symbol != '#');
+                            troopsOnBoard[x, y - 1].isProtected = (troopsOnBoard[x, y - 1].symbol != 's' && troopsOnBoard[x, y - 1].colour == "Black" && troopsOnBoard[x + 1, y].symbol != '#');
                         }
                     }
                     else if (troopsOnBoard[x, y].symbol == 'S')
                     {
                         if (x + 1 < 9)
                         {
-                            troopsOnBoard[x + 1, y].isProtected = (troopsOnBoard[x + 1, y].symbol != 'S' && troopsOnBoard[x + 1, y].colour != "Black" && troopsOnBoard[x + 1, y].symbol != '#');
+                            troopsOnBoard[x + 1, y].isProtected = (troopsOnBoard[x + 1, y].symbol != 'S' && troopsOnBoard[x + 1, y].colour == "White" && troopsOnBoard[x + 1, y].symbol != '#');
                         }
                         if (x - 1 > -1)
                         {
-                            troopsOnBoard[x - 1, y].isProtected = (troopsOnBoard[x - 1, y].symbol != 'S' && troopsOnBoard[x - 1, y].colour != "Black" && troopsOnBoard[x + 1, y].symbol != '#');
+                            troopsOnBoard[x - 1, y].isProtected = (troopsOnBoard[x - 1, y].symbol != 'S' && troopsOnBoard[x - 1, y].colour == "White" && troopsOnBoard[x + 1, y].symbol != '#');
                         }
                         if (y + 1 < 9)
                         {
-                            troopsOnBoard[x, y + 1].isProtected = (troopsOnBoard[x, y + 1].symbol != 'S' && troopsOnBoard[x, y + 1].colour != "Black" && troopsOnBoard[x + 1, y].symbol != '#');
+                            troopsOnBoard[x, y + 1].isProtected = (troopsOnBoard[x, y + 1].symbol != 'S' && troopsOnBoard[x, y + 1].colour == "White" && troopsOnBoard[x + 1, y].symbol != '#');
                         }
                         if (y - 1 > -1)
                         {
-                            troopsOnBoard[x, y - 1].isProtected = (troopsOnBoard[x, y - 1].symbol != 'S' && troopsOnBoard[x, y - 1].colour != "Black" && troopsOnBoard[x + 1, y].symbol != '#');
+                            troopsOnBoard[x, y - 1].isProtected = (troopsOnBoard[x, y - 1].symbol != 'S' && troopsOnBoard[x, y - 1].colour == "White" && troopsOnBoard[x + 1, y].symbol != '#');
                         }
                     }
                 }

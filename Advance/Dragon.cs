@@ -73,7 +73,6 @@ namespace Advance
         of the 8 directions*/
         public override void markNextLegalMove(Board board, Bot bot, int curRow, int curColumn)
         {
-            Console.WriteLine($"To be written for {this.GetType().Name}");
             List<int[]> toTop = new List<int[]>();
             List<int[]> toBottom = new List<int[]>();
             List<int[]> toLeft = new List<int[]>();

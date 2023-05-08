@@ -55,37 +55,37 @@ namespace Advance
             return troopsOnBoard[x, y].colour;
         }
 
-        public int calTotalValue(bool playAsWhite)
+
+        public int[] calTotalValue()
         {
-            int total = 0;
-            if (playAsWhite == true)
+            int[] total = new int[2];
+            int whiteTotal = 0;
+            int blackTotal = 0;
+            for (int i = 0; i < 9; i++)
             {
-                for (int i = 0; i < 9; i++)
+                for (int j = 0; j < 9; j++)
                 {
-                    for (int j = 0; j < 9; j++)
+                    if (troopsOnBoard[i, j] == null) continue;
+                    if (char.IsUpper(troopsOnBoard[i, j].symbol) == true)
                     {
-                        if (troopsOnBoard[i, j] == null) continue;
-                        if (char.IsUpper(troopsOnBoard[i, j].symbol) == true)
-                        {
-                            total += troopsOnBoard[i, j].resourceValue;
-                        }
+                        whiteTotal += troopsOnBoard[i, j].resourceValue;
                     }
                 }
             }
-            else
+
+            for (int i = 0; i < 9; i++)
             {
-                for (int i = 0; i < 9; i++)
+                for (int j = 0; j < 9; j++)
                 {
-                    for (int j = 0; j < 9; j++)
+                    if (troopsOnBoard[i, j] == null) continue;
+                    if (char.IsUpper(troopsOnBoard[i, j].symbol) != true)
                     {
-                        if (troopsOnBoard[i, j]==null) continue;
-                        if (char.IsUpper(troopsOnBoard[i, j].symbol) != true)
-                        {
-                            total += troopsOnBoard[i, j].resourceValue;
-                        }
+                        blackTotal += troopsOnBoard[i, j].resourceValue;
                     }
                 }
             }
+            total[0] = whiteTotal;
+            total[1] = blackTotal;
             return total;
         }
 

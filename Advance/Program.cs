@@ -13,6 +13,7 @@ namespace Advance
         private static string botName = "Eudyptula";
         private static string[] firstArg = new string[3] {"white", "black", "name"};
         public static bool playAsWhite;
+        public static bool playAsBlack;
 
         public static void outputError(string message)
         {
@@ -37,13 +38,14 @@ namespace Advance
                     if (argsOneBlackOrWhite == true)
                     {
                         playAsWhite = args[0].ToLower() == "white" ? true : false;
+                        playAsBlack = args[0].ToLower() == "black" ? true : false;
                         // input validation for second and third argument
                         if ((File.Exists(args[1]) && File.Exists(args[2])) == true)
                         {
                             Board mainBoard = new Board();
                             mainBoard.readFileToBoard(args[1]);
-                            Bot botWhite = new Bot(playAsWhite, mainBoard.calTotalValue(playAsWhite));
-                            Bot botBlack = new Bot(!playAsWhite, mainBoard.calTotalValue(playAsWhite));
+                            Bot botWhite = new Bot(playAsWhite, playAsBlack, mainBoard.calTotalValue()[0]);
+                            Bot botBlack = new Bot(playAsWhite, playAsBlack, mainBoard.calTotalValue()[1]);
 
                             mainBoard.setProtection();
 
@@ -59,15 +61,10 @@ namespace Advance
                             //}
 
 
-                            if (playAsWhite == true)
-                            {
-                                mainBoard.scanBoard(playAsWhite, mainBoard, botWhite);
-                            }
-                            else
-                            {
-                                mainBoard.scanBoard(playAsWhite, mainBoard, botBlack);
-                            }
-                            
+
+                            mainBoard.scanBoard(botWhite.playAsWhite, mainBoard, botWhite);
+                            mainBoard.scanBoard(botBlack.playAsBlack, mainBoard, botBlack);
+
 
 
                             //analyse board and make a move here

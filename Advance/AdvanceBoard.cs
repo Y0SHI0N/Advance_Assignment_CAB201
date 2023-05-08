@@ -318,32 +318,42 @@ namespace Advance
 
         public void writeBoardToFile(string path)
         {
-            string text = "";
+            //string text = "";
 
-            for (int i = 0;i < Size; i++)
+            //for (int i = 0;i < Size; i++)
+            //{
+            //    for(int j = 0;j < Size; j++)
+            //    {
+            //        text = text + Grid[i,j].troopSymbol.ToString();
+            //    }
+            //    text = text + "\n";
+            //}
+            Console.WriteLine("\nExpected board:");
+            for (int i = 0; i < Size; i++)
             {
-                for(int j = 0;j < Size; j++)
+                for (int j = 0; j < Size; j++)
                 {
-                    text = text + Grid[i,j].troopSymbol.ToString();
+                    Console.Write($"{Grid[i, j].troopSymbol}");
                 }
-                text = text + "\n";
+                Console.WriteLine();
             }
+            Console.WriteLine() ;
 
-            try
-            {
-                if (File.Exists(path))
-                {
-                    using (StreamWriter writer = new StreamWriter(path))
-                    {
-                        writer.Write(text);
-                        writer.Close();
-                    }
-                }
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e.Message);
-            }
+            //try
+            //{
+            //    if (File.Exists(path))
+            //    {
+            //        using (StreamWriter writer = new StreamWriter(path))
+            //        {
+            //            writer.Write(text);
+            //            writer.Close();
+            //        }
+            //    }
+            //}
+            //catch (Exception e)
+            //{
+            //    Console.WriteLine(e.Message);
+            //}
         }
 
         public object Clone()

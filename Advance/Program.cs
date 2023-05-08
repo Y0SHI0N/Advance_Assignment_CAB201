@@ -44,8 +44,8 @@ namespace Advance
                         {
                             Board mainBoard = new Board();
                             mainBoard.readFileToBoard(args[1]);
-                            Bot botWhite = new Bot(playAsWhite, playAsBlack, mainBoard.calTotalValue()[0]);
-                            Bot botBlack = new Bot(playAsWhite, playAsBlack, mainBoard.calTotalValue()[1]);
+                            Bot botWhite = new Bot(true, false, mainBoard.calTotalValue()[0]);
+                            Bot botBlack = new Bot(false, true, mainBoard.calTotalValue()[1]);
 
                             mainBoard.setProtection();
 
@@ -63,7 +63,7 @@ namespace Advance
 
 
                             mainBoard.scanBoard(botWhite.playAsWhite, mainBoard, botWhite);
-                            mainBoard.scanBoard(botBlack.playAsBlack, mainBoard, botBlack);
+                            mainBoard.scanBoard(botBlack.playAsWhite, mainBoard, botBlack);
 
 
 
@@ -124,6 +124,15 @@ namespace Advance
                                 {
                                     Console.WriteLine("\tmove {0} from row {1} col {2} to row {3} col {4}", item.troop, item.oldX + 1, item.oldY + 1, item.newX + 1, item.newY + 1);
                                 }
+                            }
+
+                            if (playAsWhite)
+                            {
+                                botWhite.makeMove(mainBoard);
+                            }
+                            else
+                            {
+                                botBlack.makeMove(mainBoard);
                             }
 
                             mainBoard.writeBoardToFile(args[2]);

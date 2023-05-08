@@ -318,43 +318,43 @@ namespace Advance
 
         public void writeBoardToFile(string path)
         {
-            string text = "";
+            //string text = "";
 
-            for (int i = 0; i < Size; i++)
-            {
-                for (int j = 0; j < Size; j++)
-                {
-                    text = text + Grid[i, j].troopSymbol.ToString();
-                }
-                text = text + "\n";
-            }
-
-            //Console.WriteLine("\nExpected board:");
             //for (int i = 0; i < Size; i++)
             //{
             //    for (int j = 0; j < Size; j++)
             //    {
-            //        Console.Write($"{Grid[i, j].troopSymbol}");
+            //        text = text + Grid[i, j].troopSymbol.ToString();
             //    }
-            //    Console.WriteLine();
+            //    text = text + "\n";
             //}
-            //Console.WriteLine() ;
 
-            try
+            Console.WriteLine("\nExpected board:");
+            for (int i = 0; i < Size; i++)
             {
-                if (File.Exists(path))
+                for (int j = 0; j < Size; j++)
                 {
-                    using (StreamWriter writer = new StreamWriter(path))
-                    {
-                        writer.Write(text);
-                        writer.Close();
-                    }
+                    Console.Write($"{Grid[i, j].troopSymbol}");
                 }
+                Console.WriteLine();
             }
-            catch (Exception e)
-            {
-                Console.WriteLine(e.Message);
-            }
+            Console.WriteLine();
+
+            //try
+            //{
+            //    if (File.Exists(path))
+            //    {
+            //        using (StreamWriter writer = new StreamWriter(path))
+            //        {
+            //            writer.Write(text);
+            //            writer.Close();
+            //        }
+            //    }
+            //}
+            //catch (Exception e)
+            //{
+            //    Console.WriteLine(e.Message);
+            //}
         }
 
         public object Clone()

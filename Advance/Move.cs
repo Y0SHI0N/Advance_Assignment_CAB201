@@ -37,6 +37,11 @@ namespace Advance
             this.breakWall = breakWall;
         }
 
+        public void evaluateMove()
+        {
+
+        }
+
         public void computeMove()
         {
             newBoard = cloneBoard;
@@ -85,12 +90,12 @@ namespace Advance
 
             else if (SwapPlace)
             {
-                newBoard.troopsOnBoard[oldX, oldY].symbol = cloneBoard.troopsOnBoard[newX, newY].symbol;
-                newBoard.troopsOnBoard[newX, newY].symbol = cloneBoard.troopsOnBoard[oldX, oldY].symbol;
+                newBoard.troopsOnBoard[oldX, oldY].symbol = cloneBoard.troopsOnBoard[oldX, oldY].symbol;
+                newBoard.troopsOnBoard[newX, newY].symbol = cloneBoard.troopsOnBoard[newX, newY].symbol;
                 outcomeResources = initialResources;
 
-                newBoard.Grid[oldX, oldY].troopSymbol = cloneBoard.troopsOnBoard[newX, newY].symbol;
-                newBoard.Grid[newX, newY].troopSymbol = cloneBoard.troopsOnBoard[oldX, oldY].symbol;
+                newBoard.Grid[oldX, oldY].troopSymbol = newBoard.troopsOnBoard[newX, newY].symbol;
+                newBoard.Grid[newX, newY].troopSymbol = newBoard.troopsOnBoard[oldX, oldY].symbol;
             }
             else //just a normal move into an empty square
             {

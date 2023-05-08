@@ -19,7 +19,7 @@ namespace Advance
             this.totalResource = totalResource;
         }
 
-        private void decideMove()
+        private void decideMove(Bot opposingBot)
         {
            switch (this.possibleLegalMoveList.Count)
             {
@@ -34,15 +34,32 @@ namespace Advance
                     break;
 
                 default:
+                    Move tempMove;
+                    List<Move> tempMoves = new List<Move>();
+
+                    foreach (Move move in this.possibleLegalMoveList)
+                    {
+                        tempMove = move;
+                        tempMove.computeMove();
+                        if (tempMove.outcomeResources >= tempMove.initialResources)
+                        {
+                            tempMoves.Add(tempMove);
+                        }
+                    }
+                    // find out if taking the move would result in the general being in danger?
                     Console.WriteLine("multiple");
+
+
+                    bestMove = this.possibleLegalMoveList[0];
+                    bestMove.computeMove();
                     break;
 
             }
         }
 
-        public void makeMove(Board mainboard) 
+        public void makeMove(Board mainboard, Bot opposingBot) 
         {
-            decideMove();
+            decideMove(opposingBot);
             mainboard.Grid = bestMove.newBoard.Grid;
         }
     }

@@ -128,11 +128,11 @@ namespace Advance
 
                             if (playAsWhite)
                             {
-                                botWhite.makeMove(mainBoard);
+                                botWhite.makeMove(mainBoard, botBlack);
                             }
                             else
                             {
-                                botBlack.makeMove(mainBoard);
+                                botBlack.makeMove(mainBoard, botWhite);
                             }
 
                             mainBoard.writeBoardToFile(args[2]);
